@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noted</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <h1>Noted<span>.</span></h1>
+    <p class="note-count">0 notes</p>
+  </header>
+
+  <main class="page">
+    <form class="create-card" novalidate>
+      <div class="field">
+        <label for="note-title">Title</label>
+        <input id="note-title" name="title" type="text" maxlength="120" autocomplete="off"
+          aria-describedby="title-error">
+        <p id="title-error" class="field-error" hidden></p>
+      </div>
+
+      <div class="field">
+        <label for="note-body">Body <span class="optional">(optional)</span></label>
+        <textarea id="note-body" name="body" rows="3" maxlength="2000"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <span class="hint">Ctrl/Cmd + Enter to add</span>
+        <button type="submit" class="add-note">Add</button>
+      </div>
+    </form>
+
+    <ul class="notes-list"></ul>
+    <p class="empty-message">No notes yet. Add your first note above.</p>
+
+    <p class="status visually-hidden" aria-live="polite"></p>
+  </main>
+
+  <footer class="footer">Noted App</footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>

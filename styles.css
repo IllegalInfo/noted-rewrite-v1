@@ -1,0 +1,283 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #0e1013;
+  color: #e4e7eb;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid #4f8cff;
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background-color: #15181d;
+  border-bottom: 1px solid #262b33;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+h1 span {
+  color: #4f8cff;
+}
+
+.note-count {
+  margin: 0;
+  color: #9ba3ae;
+  font-size: 14px;
+}
+
+.page {
+  flex: 1;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.create-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid #262b33;
+  border-radius: 12px;
+  background-color: #15181d;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  color: #c3c9d1;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.optional {
+  color: #9ba3ae;
+  font-weight: 400;
+}
+
+.field input,
+.field textarea {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #3a4250;
+  border-radius: 8px;
+  background-color: #0e1013;
+  color: #e4e7eb;
+  font-size: 15px;
+}
+
+.field textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field input[aria-invalid="true"] {
+  border-color: #ff6b6b;
+}
+
+.field-error {
+  margin: 0;
+  color: #ff8080;
+  font-size: 13px;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.hint {
+  color: #9ba3ae;
+  font-size: 13px;
+}
+
+.add-note {
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1px solid #4f8cff;
+  border-radius: 8px;
+  background-color: #4f8cff;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.add-note:hover {
+  border-color: #3d7af0;
+  background-color: #3d7af0;
+}
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.note-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #262b33;
+  border-radius: 10px;
+  background-color: #1b1f26;
+}
+
+.done-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: #9ba3ae;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.done-toggle input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: #4f8cff;
+  cursor: pointer;
+}
+
+.note-content {
+  flex: 1;
+  min-width: 0;
+  padding-top: 10px;
+}
+
+.note-title {
+  display: inline;
+  margin: 0;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.note-body {
+  margin: 6px 0 0;
+  color: #b3bac4;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.note-row.completed .note-title,
+.note-row.completed .note-body {
+  text-decoration: line-through;
+  color: #9ba3ae;
+}
+
+.done-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border: 1px solid #3a4250;
+  border-radius: 999px;
+  color: #c3c9d1;
+  font-size: 12px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.delete-button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #9ba3ae;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.delete-button:hover {
+  border-color: #5a2a31;
+  background-color: #3a1f24;
+  color: #ff8080;
+}
+
+.empty-message {
+  margin: 32px 0;
+  color: #9ba3ae;
+  text-align: center;
+}
+
+.empty-message[hidden] {
+  display: none;
+}
+
+.footer {
+  padding: 20px;
+  border-top: 1px solid #262b33;
+  color: #9ba3ae;
+  font-size: 13px;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    padding: 16px;
+  }
+
+  .note-row {
+    flex-wrap: wrap;
+  }
+
+  .note-content {
+    flex-basis: calc(100% - 140px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
