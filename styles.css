@@ -224,7 +224,13 @@ h1 span {
   vertical-align: middle;
 }
 
-.delete-button {
+.row-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.row-button,
+.secondary-button {
   min-width: 44px;
   min-height: 44px;
   padding: 0 12px;
@@ -235,6 +241,31 @@ h1 span {
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
+}
+
+.row-button:hover,
+.secondary-button:hover {
+  border-color: #3a4250;
+  background-color: #262b33;
+  color: #e4e7eb;
+}
+
+.secondary-button {
+  padding: 0 18px;
+  border-color: #3a4250;
+  font-size: 14px;
+}
+
+.note-row.editing {
+  border-color: #4f8cff;
+}
+
+.edit-form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
 }
 
 .delete-button:hover {
@@ -273,6 +304,24 @@ h1 span {
   .note-content {
     flex-basis: calc(100% - 140px);
   }
+
+  .row-actions {
+    margin-left: auto;
+  }
+}
+
+.announcement {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: 8px;
+  background-color: #4f8cff;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {

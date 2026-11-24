@@ -1,7 +1,8 @@
-import { validateTitle, createNote, toggleNote, deleteNote, sortNotes } from "./notes.js";
+import { validateTitle, createNote, updateNote, toggleNote, deleteNote, sortNotes } from "./notes.js";
 import { render } from "./render.js";
 
 let notes = [];
+let editingId = null;
 
 let form = document.querySelector(".create-card");
 let titleInput = document.querySelector("#note-title");
@@ -17,7 +18,7 @@ let elements = {
 
 function update(newNotes) {
   notes = sortNotes(newNotes);
-  render(notes, elements);
+  render(notes, elements, editingId);
 }
 
 function announce(message) {
@@ -45,6 +46,46 @@ function addNote() {
   form.reset();
   titleInput.focus();
   announce("Note added.");
+}
+
+function focusEditButton(id) {
+  elements.list.querySelector('[data-action="edit"][data-id="' + id + '"]').focus();
+}
+
+function startEdit(id) {
+  editingId = id;
+  render(notes, elements, editingId);
+  document.querySelector("#edit-title").focus();
+}
+
+function cancelEdit() {
+  let id = editingId;
+  editingId = null;
+  render(notes, elements, editingId);
+  focusEditButton(id);
+  announce("Edit cancelled.");
+}
+
+function saveEdit() {
+  let editTitle = document.querySelector("#edit-title");
+  let editBody = document.querySelector("#edit-body");
+  let editError = document.querySelector("#edit-title-error");
+
+  let title = editTitle.value.trim();
+  let error = validateTitle(title);
+  if (error !== "") {
+    editError.textContent = error;
+    editError.hidden = false;
+    editTitle.setAttribute("aria-invalid", "true");
+    editTitle.focus();
+    return;
+  }
+
+  let id = editingId;
+  editingId = null;
+  update(updateNote(notes, id, title, editBody.value));
+  focusEditButton(id);
+  announce("Note saved.");
 }
 
 form.addEventListener("submit", function (event) {
@@ -77,18 +118,42 @@ elements.list.addEventListener("change", function (event) {
   elements.list.querySelector('[data-action="toggle"][data-id="' + id + '"]').focus();
 });
 
+elements.list.addEventListener("submit", function (event) {
+  event.preventDefault();
+  saveEdit();
+});
+
+elements.list.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && editingId !== null) {
+    cancelEdit();
+  }
+});
+
 elements.list.addEventListener("click", function (event) {
-  let button = event.target.closest('[data-action="delete"]');
-  if (!button) {
+  let action = event.target.dataset.action;
+  let id = event.target.dataset.id;
+
+  if (action === "edit") {
+    startEdit(id);
     return;
   }
-  let id = button.dataset.id;
+
+  if (action === "cancel") {
+    cancelEdit();
+    return;
+  }
+
+  if (action !== "delete") {
+    return;
+  }
+
   let index = notes.findIndex(function (n) { return n.id === id; });
 
   if (!window.confirm('Delete "' + notes[index].title + '"?')) {
     return;
   }
 
+  editingId = null;
   update(deleteNote(notes, id));
   announce("Note deleted.");
 
@@ -100,4 +165,4 @@ elements.list.addEventListener("click", function (event) {
   }
 });
 
-render(notes, elements);
+render(notes, elements, editingId);

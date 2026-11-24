@@ -41,6 +41,15 @@ export function toggleNote(notes, id) {
   });
 }
 
+export function updateNote(notes, id, title, body) {
+  return notes.map(function (note) {
+    if (note.id !== id) {
+      return note;
+    }
+    return { ...note, title: title, body: body, updatedAt: new Date().toISOString() };
+  });
+}
+
 export function deleteNote(notes, id) {
   return notes.filter(function (note) {
     return note.id !== id;
